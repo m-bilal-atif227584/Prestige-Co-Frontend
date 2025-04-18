@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/original.png';
+import logo from '/original.png';
 import mastercard from '../assets/Mastercard_logo.webp'
 import visacard from '../assets/visalogo.png'
 function Footer() {

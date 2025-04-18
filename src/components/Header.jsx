@@ -4,7 +4,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
-import logo2 from '../assets/original.png';
+import logo2 from '/original.png';
 import Scroller from './Scroller';
 import { useSelector } from 'react-redux';
 
