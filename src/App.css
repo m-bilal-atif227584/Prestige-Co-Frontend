@@ -1,0 +1,97 @@
+/* .nav_sec{
+    background-color: #F4DF8B;
+} */
+ .search{
+    background-color: rgba(150, 150, 150, 0.304);
+ }
+ /* .nav_sec{ */
+    /* display: flex; */
+    /* box-shadow: 1px 6px 10px -1px rgb(216, 216, 216); */
+/* } */
+.sticky_nav{
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    animation: stickyheader 0.3s ease forwards;
+    /* box-shadow: 1px 6px 10px -1px rgb(216, 216, 216); */
+}
+/* .sticky_nav {
+    @apply sticky top-0 z-50; /* if you're using Tailwind's @apply */
+  /* }    */
+@keyframes stickyheader {
+    0%{
+        transform: translateY(-100px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+.newtag{
+    transition: all ease-in-out 0.6s;
+    animation: taganm 1.3s ease-in-out infinite;
+}
+@keyframes taganm {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+.animate-scroll{
+    animation: scrolltxt 20s linear infinite;
+}
+@keyframes scrolltxt {
+    from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+}
+.scroller::-webkit-scrollbar{
+    display: none;
+}
+.glow{
+    background-color: #95C11E;
+    border-radius: 50%;
+    /* filter: blur(7px); */
+    box-shadow: 0px 0px 90px 50px #95C11E;
+    /* background-color: rgba(135, 115, 0, 0.436); */
+    transform: rotate(45deg);
+    transition: all ease-in-out 1s;
+    animation: gloww 4s ease-in-out infinite;
+}
+@keyframes gloww {
+    0%{
+        box-shadow: 0px 0px 90px 50px #95C11E;
+    }
+    50%{
+        box-shadow: 0px 0px 90px 20px #95C11E;
+    }
+    100%{
+        box-shadow: 0px 0px 90px 50px #95C11E;
+    }
+}
+/* .md\:hidden {
+    display: none;
+}
+
+.fixed {
+    position: fixed;
+} */
+
+.transition-transform {
+    transition: transform 0.3s ease-in-out;
+}
+
+.translate-x-full {
+    transform: translateX(100%);
+}
+
+.translate-x-0 {
+    transform: translateX(0);
+}
