@@ -12,6 +12,7 @@ import PaymentSuccess from './components/PaymentSuccess'
 import About from './components/About'
 import SingleProduct from './components/SingleProduct'
 import Cart from './components/Cart'
+import Success from './components/PaymentSuccess'
 
 function App() {
 
@@ -27,7 +28,8 @@ function App() {
         {/* <Route path='/checkout' element={<Checkout/>} /> */}
         {/* <Route path='/payment-success' element={<PaymentSuccess/>} /> */}
         {/* <Route path='/product' element={<Product/>} />*/}
-        <Route path='/checkout' element={<Checkout/>} /> 
+        <Route path='/checkout' element={<Checkout/>} />
+        <Route path='/success' element={<Success/>} /> 
       </Routes>
       <a className='cursor-pointer' href='http://wa.me/923357225877' target='_blank'>
       <img src={whatsapp} alt="" className='h-11 w-11 fixed bottom-3 right-3 z-[100]' />

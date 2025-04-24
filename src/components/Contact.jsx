@@ -1,8 +1,8 @@
 import React from 'react';
 import { IoLogoInstagram } from "react-icons/io5";
 import { BsWhatsapp } from "react-icons/bs";
-import { FaSquareFacebook } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
+import { Link } from 'react-router';
 
 function Contact() {
   return (
@@ -12,8 +12,9 @@ function Contact() {
         <div className='flex justify-center items-center gap-3'>
         <IoLogoInstagram className='h-7 w-7 hover:text-white duration-300 cursor-pointer' />
         <BsWhatsapp className='h-7 w-7 hover:text-white duration-300 cursor-pointer' />
-        <FaSquareFacebook className='h-7 w-7 hover:text-white duration-300 cursor-pointer' />
+        <a href='PrestigeandCo30@gmail.com' target='_blank'>
         <SiGmail className='h-7 w-7 hover:text-white duration-300 cursor-pointer' />
+        </a>
         </div>
     </div>
     </div>

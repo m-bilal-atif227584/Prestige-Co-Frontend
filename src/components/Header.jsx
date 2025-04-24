@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -43,21 +43,21 @@ function Header() {
     return (
         <>
             <div className={`${scroll ? "sticky_nav" : "nav_sec"} bg-black text-white w-full z-50`}>
-                <div className='flex items-center justify-between px-4 md:px-12 py-4'>
+                <div className='flex items-center justify-between px-4 xl:px-12 py-4'>
                     {/* Logo */}
                     <NavLink to={'/'}>
                         <img src={logo2} alt="Logo" className='h-[70px]' />
                     </NavLink>
 
                     {/* Hamburger */}
-                    <div className="md:hidden">
+                    <div className="xl:hidden">
                         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
                             {mobileMenuOpen ? <IoClose size={30} /> : <GiHamburgerMenu size={30} />}
                         </button>
                     </div>
 
                     {/* Nav Links (Desktop) */}
-                    <div className="hidden md:flex gap-9 items-center">
+                    <div className="hidden xl:flex gap-9 items-center">
                         <NavLink to="/" className={({ isActive }) =>
                             isActive ? "text-[#F4DF8B] font-bold" : "hover:text-[#F4DF8B] duration-200"
                         }>Home</NavLink>
@@ -116,7 +116,7 @@ function Header() {
                     </div>
 
                     {/* Search & Cart */}
-                    <div className="hidden md:flex gap-5 items-center">
+                    <div className="hidden xl:flex gap-5 items-center">
                         <div className="search h-[35px] bg-gray-800 rounded-xl flex px-2 py-1 items-center">
                             <input type="text" className='bg-transparent w-full text-white placeholder:text-white outline-none' placeholder='Search...' />
                             <IoIosSearch className='h-6 w-6' />
@@ -138,40 +138,47 @@ function Header() {
                                 <IoClose size={30} />
                             </button>
                         </div>
-                        <div className="flex flex-col gap-4 p-6">
+                        <div className="flex flex-col gap-4 overflow-y-auto px-6">
                         <div className="search h-[35px] bg-gray-800 rounded-xl flex px-2 py-1 items-center">
                             <input type="text" className='bg-transparent w-full text-white placeholder:text-white outline-none' placeholder='Search...' />
                             <IoIosSearch className='h-6 w-6' />
                         </div>
                             <NavLink to="/" onClick={() => setMobileMenuOpen(false)}>Home</NavLink>
-                            <NavLink to="/products" onClick={() => setMobileMenuOpen(false)}>New Arrivals</NavLink>
-                            {sale && <NavLink to="/category" onClick={() => setMobileMenuOpen(false)}>Sale</NavLink>}
+                            <NavLink to="/products/8" onClick={() => setMobileMenuOpen(false)}>New Arrivals</NavLink>
+                            <NavLink to="/products/17" onClick={() => setMobileMenuOpen(false)}>Our Collection</NavLink>
+                            {sale && <NavLink to="/products/10" onClick={() => setMobileMenuOpen(false)}>Sale</NavLink>}
+                            <NavLink to="/products/18" onClick={() => setMobileMenuOpen(false)}>Catalog</NavLink>
 
                             <div>
-                                <span className="font-bold">Men</span>
+                                <Link to={'/products/6'} className="font-bold" onClick={() => setMobileMenuOpen(false)}>Men</Link>
                                 <div className="ml-4">
-                                    <NavLink to="/men/shoes" onClick={() => setMobileMenuOpen(false)}>Shoes</NavLink><br />
-                                    <NavLink to="/men/clothing" onClick={() => setMobileMenuOpen(false)}>Clothing</NavLink>
+                                    <NavLink to="/products/11" onClick={() => setMobileMenuOpen(false)}>Strap Watches</NavLink><br />
+                                    <NavLink to="/products/12" onClick={() => setMobileMenuOpen(false)}>Chain Watches</NavLink>
                                 </div>
                             </div>
 
                             <div>
-                                <span className="font-bold">Women</span>
+                                <Link to={'/products/7'} className="font-bold" onClick={() => setMobileMenuOpen(false)}>Women</Link>
                                 <div className="ml-4">
-                                    <NavLink to="/women/shoes" onClick={() => setMobileMenuOpen(false)}>Shoes</NavLink><br />
-                                    <NavLink to="/women/clothing" onClick={() => setMobileMenuOpen(false)}>Clothing</NavLink>
+                                    <NavLink to="/products/14" onClick={() => setMobileMenuOpen(false)}>Strap Watches</NavLink><br />
+                                    <NavLink to="/products/13" onClick={() => setMobileMenuOpen(false)}>Chain Watches</NavLink>
                                 </div>
                             </div>
 
                             <div>
                                 <span className="font-bold">Brands</span>
                                 <div className="ml-4">
-                                    <NavLink to="/brands/nike" onClick={() => setMobileMenuOpen(false)}>Patek Philippe</NavLink><br />
-                                    <NavLink to="/brands/adidas" onClick={() => setMobileMenuOpen(false)}>Rolex</NavLink>
+                                    <NavLink to="/products/15" onClick={() => setMobileMenuOpen(false)}>Patek Philippe</NavLink><br />
+                                    <NavLink to="/products/16" onClick={() => setMobileMenuOpen(false)}>Rolex</NavLink>
                                 </div>
                             </div>
-
-                            <NavLink to="/cart" onClick={() => setMobileMenuOpen(false)}>Cart</NavLink>
+                            <NavLink to="/cart" className="relative" onClick={() => setMobileMenuOpen(false)}>
+                            <span>Cart</span>
+                            <MdOutlineShoppingCart className='h-7 w-7 hover:text-[#F4DF8B] duration-200' />
+                            <div className={`bg-[#F4DF8B] text-black h-5 w-5 flex justify-center ${products.length > 0 ? '' : 'hidden'} items-center rounded-full absolute -top-2 -right-2`}>
+                                <div className='text-[13px]'>{products.length}</div>
+                            </div>
+                        </NavLink>
                         </div>
                     </div>
                 {/* )} */}
@@ -183,78 +190,3 @@ function Header() {
 }
 
 export default Header;
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { NavLink } from 'react-router'
-// import { MdOutlineShoppingCart } from "react-icons/md";
-// import { IoIosSearch } from "react-icons/io";
-// import logo2 from '../assets/logo2.png'
-// import Scroller from './Scroller';
-
-// function Header() {
-
-//     const [scroll, setScroll] = useState(false)
-//     const [sale, setsale] = useState(false)
-
-//     const handleScroll = () => {
-//         const offsets = window.scrollY;
-//         if (offsets > 200) {
-//             setScroll(true);
-//         }
-//         else {
-//             setScroll(false);
-//         }
-//     }
-//     useEffect(() => {
-//         window.addEventListener("scroll", handleScroll)
-//     }, [])
-
-//     return (
-//         <>
-//             <div className={`${scroll ? "sticky_nav" : "nav_sec"} bg-black text-white w-full`} >
-//                 <div className='flex items-center justify-around'>
-//                     <NavLink to={'/'}>
-//                         <img src={logo2} alt="" className='h-[95px]' />
-//                     </NavLink>
-//                     <div className="flex gap-9">
-//                         <NavLink to={'/'} className={({ isActive }) =>
-//                             isActive ? "text-[#F4DF8B] font-[700] text-[19px] hover:text-[#F4DF8B] duration-200" : "text-white font-[600] text-[19px] hover:text-[#F4DF8B] duration-200"
-//                         }>Home</NavLink>
-//                         <NavLink to={'/products'} className={({ isActive }) =>
-//                             isActive ? "text-[#F4DF8B] font-[700] text-[19px] hover:text-[#F4DF8B] duration-200" : "text-white font-[600] text-[19px] hover:text-[#F4DF8B] duration-200"
-//                         }>New Arrivals</NavLink>
-//                         {sale && <NavLink to={'/category'} className={({ isActive }) =>
-//                             isActive ? "text-[#F4DF8B] font-[700] text-[19px] hover:text-[#F4DF8B] duration-200" : "text-white font-[600] text-[19px] hover:text-[#F4DF8B] duration-200"
-//                         }>Sale</NavLink>}
-//                         <NavLink to={'/aboutus'} className={({ isActive }) =>
-//                             isActive ? "text-[#F4DF8B] font-[700] text-[19px] hover:text-[#F4DF8B] duration-200" : "text-white font-[600] text-[19px] hover:text-[#F4DF8B] duration-200"
-//                         }>Men</NavLink>
-//                         <NavLink to={'/contact'} className={({ isActive }) =>
-//                             isActive ? "text-[#F4DF8B] font-[700] text-[19px] hover:text-[#F4DF8B] duration-200" : "text-white font-[600] text-[19px] hover:text-[#F4DF8B] duration-200"
-//                         }>Women</NavLink>
-//                         <NavLink to={'/contact'} className={({ isActive }) =>
-//                             isActive ? "text-[#F4DF8B] font-[700] text-[19px] hover:text-[#F4DF8B] duration-200" : "text-white font-[600] text-[19px] hover:text-[#F4DF8B] duration-200"
-//                         }>Brands</NavLink>
-//                     </div>
-//                     <div className="flex gap-5 justify-center items-center">
-//                         <div className="search h-[35px] rounded-xl flex px-2 py-1 items-center">
-//                             <input type="text" className='w-full text-white placeholder:text-white outline-none' placeholder='Search...' />
-//                             <IoIosSearch className='h-7 w-7' />
-//                         </div>
-//                         <NavLink to={'/cart'}>
-//                             <MdOutlineShoppingCart className='h-7 cursor-pointer mt-5 ml-[-7px] w-7 hover:text-[#F4DF8B] duration-200' />
-//                             <div className="bg-[#F4DF8B] text-black h-5 w-5 flex justify-center items-center rounded-full relative top-[-36px] right-[-15px]">
-//                                 <div className='text-[13px]'>5</div>
-//                             </div>
-//                         </NavLink>
-//                     </div>
-//                 </div>
-//             </div>
-//             <Scroller />
-//         </>
-//     )
-// }
-
-// export default Header

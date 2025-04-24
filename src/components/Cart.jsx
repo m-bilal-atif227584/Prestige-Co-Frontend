@@ -12,7 +12,7 @@ const Cart = () => {
   const totalPrice = () => {
     let total = 0;
     products.forEach((item) => {
-      total += (Number(item.price.replace(/,/g, '')) * item.quantity);
+      total += (Number(item.price.replace(/,/g, '')) * Number(item.quantity));
     });
     return total;
   }
@@ -65,7 +65,7 @@ const Cart = () => {
               </div>
               <div className="text-right">
                 <p className="text-white font-medium">
-                  Rs.{(Number(item.price.replace(/,/g, '')) * item.quantity).toLocaleString()} PKR
+                  Rs.{(Number(item.price.replace(/,/g, '')) * Number(item.quantity)).toLocaleString()} PKR
                 </p>
                 <button
                   onClick={() => dispatch(removeItem(item.id))}

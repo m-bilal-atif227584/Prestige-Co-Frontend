@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { useSelector, useDispatch } from "react-redux";
-import useFetch from "../hooks/useFetch";
 import { resetCart } from "../redux/CartReducer";
+import conf from "../utils/conf";
+import { databases, functions } from "../utils/appwrite";
+import { ID } from "appwrite";
 
 const Checkout = () => {
   const [form, setForm] = useState({
@@ -14,10 +16,29 @@ const Checkout = () => {
     address: "",
   });
 
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const res = await databases.listDocuments(
+          conf.appwriteDatabaseId,
+          conf.appwriteShippingCollectionId
+        );
+        if (res.documents.length > 0) {
+          setData(res.documents);
+        }
+      } catch (error) {
+        console.error("Error fetching category:", error);
+      }
+    };
+
+    fetchCategory();
+  }, []);
+
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const dispatch = useDispatch();
-  const { data } = useFetch("/shipping-charges");
   const shippingCharge = Number(data?.[0]?.charges || 0);
   const products = useSelector((state) => state.cart.products);
   const [paymentMethod, setPaymentMethod] = useState("cash");
@@ -83,68 +104,82 @@ const Checkout = () => {
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-
+    if(products == []) return;
+  
     setSubmitting(true);
-
-    const orderData = {
-      orderData: {
-        customerName: form.name.trim(),
-        customerEmail: form.email.trim(),
-        customerPhoneNumber: form.phone.trim(),
-        customerCountry: form.country.trim(),
-        customerCity: form.city.trim(),
-        shippingAddress: form.address.trim(),
-        orderStatus: "pending",
-        totalAmount: totalPrice().toString(),
-        products: products.map((item) => ({
-          product_id: item.id,
-          product_name: item.title,
-          price: item.price,
-          product_description: item.desc,
-          quantity: item.quantity,
-        })),
-      },
-    };
-
+  
     try {
-      const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
+      // Create document in Appwrite's orders collection
+      const orderRes = await databases.createDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteOrderCollectionId, // Make sure this is defined in conf.js
+        ID.unique(), // Generate a unique doc ID
+        {
+          customerName: form.name.trim(),
+          customerEmail: form.email.trim(),
+          customerPhoneNumber: form.phone.trim(),
+          customerCountry: form.country.trim(),
+          customerCity: form.city.trim(),
+          ShippingAddress: form.address.trim(),
+          totalAmount: totalPrice().toString(),
+          products: JSON.stringify(
+            products.map((item) => ({
+              product_id: item.id,
+              product_name: item.title,
+              price: item.price,
+              product_description: item.desc,
+              quantity: item.quantity,
+            }))
+          ), // stringify because Appwrite field is string
+        }
+      );
+  
+      dispatch(resetCart());
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        country: "",
+        city: "",
+        address: "",
       });
 
-      if (res.ok) {
-        dispatch(resetCart());
-        setForm({
-          name: "",
-          email: "",
-          phone: "",
-          country: "",
-          city: "",
-          address: "",
-        }); // Reset form after successful order
+      const response = await functions.createExecution(
+        conf.appwriteFunctionId, 
+        JSON.stringify({
+          customerName: form.name,
+          customerEmail: form.email,
+          customerPhone: form.phone,
+          customerAddress: {
+            country: form.country,
+            city: form.city,
+            street: form.address,
+          },
+          totalAmount: totalPrice(),
+          orderDetails: products.map((item) => ({
+            name: item.title,
+            quantity: item.quantity,
+            description: item.desc,
+            price: item.price.replace(/,/g, ""),
+          })),
+        })
+      );
+      
 
-        // console.log(res.json());
-        
+      // console.log('Email sent successfully:', response);
 
-        const result = await res.json(); // Assuming the API returns order data
-        // await sendMailToOwner(result.order); // Send email to owner after order placed
+      // Optionally, redirect the user or show a success message
   
-        // console.log(result.order);
-        
-        alert("✅ Order placed successfully!");
-        navigate("/"); // Navigate to home page
-      } else {
-        alert("❌ Something went wrong. Please try again.");
-      }
+      alert("✅ Order placed successfully!");
+      navigate(`/success?orderId=${orderRes.$id}`);
     } catch (error) {
-      alert(`❌ Network error. Please try later. ${error}`);
+      alert("❌ Failed to place order. " + error.message);
     } finally {
       setSubmitting(false);
     }
   };
 
-  return (
+  return products.length == 0  ? (<div className="min-h-[480px]"></div>) : (
     <div className="max-w-4xl mx-auto px-4 py-10">
       <h2 className="text-3xl font-bold mb-8 text-white text-center">CHECKOUT</h2>
 
@@ -261,227 +296,3 @@ const Checkout = () => {
 };
 
 export default Checkout;
-
-
-// const sendMailToOwner = async (orderData) => {
-//   try {
-//     const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/orders/send-email`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ orderData }),
-//     });
-
-//     if (!res.ok) {
-//       throw new Error("Email not sent");
-//     }
-
-//     console.log("✅ Email sent to owner.");
-//   } catch (err) {
-//     console.error("❌ Email sending failed:", err);
-//   }
-// };
-
-
-
-
-// import React, { useState } from "react";
-// import { Link } from "react-router-dom"; // You can use react-router to navigate if required
-// import { useSelector, useDispatch } from "react-redux"
-// import useFetch from "../hooks/useFetch";
-// import { resetCart } from "../redux/CartReducer";
-
-// const Checkout = () => {
-
-//   const [name,setname] = useState("")
-//   const [email,setemail] = useState("")
-//   const [phone,setphone] = useState("")
-//   const [country,setcountry] = useState("")
-//   const [city,setcity] = useState("")
-//   const [address,setaddress] = useState("")
-  
-//   const dispatch = useDispatch();
-//   const { data } = useFetch('/shipping-charges')
-  
-//   const shippingCharge = Number(data && data.length > 0 && data[0].charges);
-//   // console.log(data && data.length > 0 && data[0].charges);
-//   const products = useSelector(state => state.cart.products)
-  
-//   const totalPrice = () => {
-//     let total = 0;
-//     products.forEach((item) => {
-//       total += (Number(item.price.replace(/,/g, '')) * item.quantity);
-//     });
-//     total += shippingCharge;
-//     return total;
-//   }
-
-//   const [paymentMethod, setPaymentMethod] = useState("cash");
-
-//   const handlePaymentMethodChange = (e) => {
-//     setPaymentMethod(e.target.value); // Update payment method based on selection
-//   };
-
-//   const handlePlaceOrder = async () => {
-   
-//     const orderData = {
-//       data: {
-//         customerName: name,
-//         customerEmail: email,
-//         customerPhoneNumber: phone,
-//         customerCountry: country,
-//         customerCity: city,
-//         shippingAddress: address,
-//         orderStatus: "pending",
-//         totalAmount: totalPrice().toString(),
-//         products: products.map(item => ({
-//           product_id: item.id,
-//           product_name: item.title,
-//           price: item.price,
-//           product_description: item.desc,
-//           quantity: item.quantity
-//         }))
-//       }
-//     };
-  
-//     await fetch(`${import.meta.env.VITE_APP_API_URL}/orders`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(orderData)
-//     });
-
-//     dispatch(resetCart());
-  
-//     alert("Order Placed Successfully!");
-//   };
-
-//   return (
-//     <div className="max-w-4xl mx-auto px-4 py-10">
-//       <h2 className="text-3xl font-bold mb-8 text-white text-center">CHECKOUT</h2>
-
-//       {/* User Information Form */}
-//       <div className="bg-white/10 p-6 rounded-xl shadow-lg backdrop-blur-md mb-8">
-//         <h3 className="text-2xl text-white font-semibold mb-6">Billing Information</h3>
-//         <form>
-//           <div className="mb-4">
-//             <label className="text-white font-medium">Full Name</label>
-//             <input
-//               type="text"
-//               placeholder="Enter your full name"
-//               className="w-full mt-2 p-3 bg-transparent border border-gray-500 rounded-xl text-white" onChange={(e) => setname(e.target.value)}
-//             />
-//           </div>
-//           <div className="mb-4">
-//             <label className="text-white font-medium">Email Address</label>
-//             <input
-//               type="email"
-//               placeholder="Enter your email"
-//               className="w-full mt-2 p-3 bg-transparent border border-gray-500 rounded-xl text-white" onChange={(e) => setemail(e.target.value)}
-//             />
-//           </div>
-//           <div className="mb-4">
-//             <label className="text-white font-medium">Phone Number</label>
-//             <input
-//               type="tel"
-//               placeholder="Enter your phone number"
-//               className="w-full mt-2 p-3 bg-transparent border border-gray-500 rounded-xl text-white" onChange={(e) => setphone(e.target.value)}
-//             />
-//           </div>
-//           {/* Country Dropdown */}
-//           <div className="mb-4">
-//             <label className="text-white font-medium">Country</label>
-//             <select
-//               className="w-full mt-2 p-3 cursor-pointer bg-transparent border border-gray-500 rounded-xl text-white" onChange={(e) => setcountry(e.target.value)}
-//             >
-//               <option value="Pakistan" className="cursor-pointer text-black">Pakistan</option>
-//               <option value="Dubai" className="cursor-pointer text-black">Dubai</option>
-//               <option value="America" className="cursor-pointer text-black">America</option>
-//               <option value="China" className="cursor-pointer text-black">China</option>
-//               <option value="Turkey" className="cursor-pointer text-black">Turkey</option>
-//             </select>
-//           </div>
-//           <div className="mb-4">
-//             <label className="text-white font-medium">City</label>
-//             <input
-//               type="text"
-//               placeholder="Enter your city"
-//               className="w-full mt-2 p-3 bg-transparent border border-gray-500 rounded-xl text-white" onChange={(e) => setcity(e.target.value)}
-//             />
-//           </div>
-//           <div className="mb-4">
-//             <label className="text-white font-medium resize-none">Shipping Address</label>
-//             <textarea
-//               placeholder="Enter your shipping address"
-//               className="w-full mt-2 p-3 bg-transparent border border-gray-500 rounded-xl text-white" onChange={(e) => setaddress(e.target.value)}
-//             />
-//           </div>
-//         </form>
-//       </div>
-
-//       {/* Order Summary */}
-//       <div className="bg-white/10 p-6 rounded-xl shadow-lg backdrop-blur-md mb-8">
-//         <h3 className="text-2xl text-white font-semibold mb-6">Order Summary</h3>
-//         <div>
-//           {products.map((item) => (
-//             <div key={item.id} className="flex items-center justify-between mb-4">
-//               <div className="flex items-center gap-4">
-//                 <img
-//                   src={item.img}
-//                   alt={item.title}
-//                   className="w-20 h-20 object-cover rounded-lg"
-//                 />
-//                 <div>
-//                   <h4 className="text-lg font-semibold text-white">{item.title}</h4>
-//                   <p className="text-gray-400">Rs.{item.price} PKR</p>
-//                 </div>
-//               </div>
-//               <span className="text-white font-medium">x {item.quantity}</span>
-//             </div>
-//           ))}
-//         </div>
-
-//         {/* Shipping Charge */}
-//         <div className="flex justify-between text-white font-medium mt-4">
-//           <span>Shipping Charges</span>
-//           <span>Rs.{shippingCharge} PKR</span>
-//         </div>
-
-//         {/* Total Price */}
-//         <div className="border-t border-gray-500 mt-4 pt-4">
-//           <h4 className="text-xl font-semibold text-white">Total: Rs.{totalPrice().toLocaleString()} PKR</h4>
-//         </div>
-//       </div>
-
-//       {/* Payment Method */}
-//       <div className="bg-white/10 p-6 rounded-xl shadow-lg backdrop-blur-md mb-8">
-//         <h3 className="text-2xl text-white font-semibold mb-6">Payment Method</h3>
-//         <div className="flex items-center space-x-6">
-//           <div>
-//             <input
-//               type="radio"
-//               id="cashOnDelivery"
-//               name="paymentMethod"
-//               value="cash"
-//               checked={paymentMethod === "cash"}
-//               onChange={handlePaymentMethodChange}
-//               className="mr-2"
-//             />
-//             <label htmlFor="cashOnDelivery" className="text-white">Cash on Delivery</label>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Proceed to Payment Button */}
-//       <div className="text-right">
-//         <Link to="/">
-//           <button className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition cursor-pointer" onClick={() => handlePlaceOrder()}>
-//             Complete Order
-//           </button>
-//         </Link>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Checkout;

@@ -95,3 +95,64 @@
 .translate-x-0 {
     transform: translateX(0);
 }
+.cards {
+    height: 450px;
+    width: 320px;
+    border-radius: 10px;
+    z-index: 10;
+    transition: all 0.8s ease-in-out;
+}
+.overlay {
+    height: 100%;
+    width: 100%;
+    background-color: #2d2d2de6;
+    color: white;
+    padding-top: 80px;
+    padding-right: 7px;
+    padding-left: 7px;
+    opacity: 0;
+    z-index: 10;
+    border-radius: 10px;
+    transition: all 0.7s ease-in-out;
+    text-align: center;
+}
+
+.overlay h4 {
+    font-size: 1.7rem;
+    font-weight: 900;
+}
+
+.overlay p {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.cards:hover {
+    transform: rotate3d(-1, 1, 0.1, 20deg);
+    cursor: pointer;
+}
+
+.cards:hover .overlay {
+    opacity: 1;
+}
+.cards:hover {
+    background-color: #95C11E;
+}
+.card2 {
+    background: url('./assets/womenCat.jpg')no-repeat center center / cover;
+}
+
+.card1 {
+    background: url('./assets/menCat.jpg')no-repeat center center / cover;
+}
+.scrollBarHide::-webkit-scrollbar{
+    display: none;
+}
+.scrollBarHide{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+.inn{
+    filter: invert();
+}
