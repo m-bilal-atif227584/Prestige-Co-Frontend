@@ -25,8 +25,6 @@ function Premium({type}) {
     
         fetchCategory();
       }, []);
-
-      console.log(data);
       
 
     return (

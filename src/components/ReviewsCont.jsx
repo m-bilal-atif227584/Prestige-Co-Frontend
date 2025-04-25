@@ -31,8 +31,6 @@ const ReviewsSection = () => {
     getReviews();
   }, []);
 
-  console.log(reviews);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -140,7 +138,7 @@ const ReviewsSection = () => {
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-white text-black rounded-md font-semibold hover:bg-gray-300 duration-200"
+            className="px-4 py-2 bg-black text-white rounded-md font-semibold hover:bg-gray-600 cursor-pointer duration-200"
           >
             Add Review
           </button>

@@ -11,7 +11,6 @@ const SingleProduct = () => {
     const [data,setData] = useState()
     const Id = parseInt(useParams().id);
     const [quantity, setQuantity] = useState(1); 
-    console.log(Id);
     
     useEffect(() => {
         const fetchCategory = async () => {
@@ -36,11 +35,6 @@ const SingleProduct = () => {
     
     const [SelectedImg, setSelectedImg] = useState("img1")
     const dispatch = useDispatch()
-
-    // const handleAddToCart = () => {
-        // Add-to-cart logic (you can connect this to context or backend)
-        // alert(`Added ${quantity} ${product.name} to cart`);
-    // };
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">

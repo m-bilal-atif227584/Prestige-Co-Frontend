@@ -16,8 +16,6 @@ const Cart = () => {
     });
     return total;
   }
-  // console.log(products && products.length > 0 && products[0].price)
-  // console.log(products && products.length > 0 && products[0].quantity)
 
   return (
     <div className="max-w-5xl min-h-[454px] mx-auto px-4 py-10">

@@ -1,4 +1,5 @@
 import cartReducer from "./CartReducer";
+import saleReducer from "./saleSlice"
 import { configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
@@ -23,6 +24,7 @@ const persistedReducer = persistReducer(persistConfig, cartReducer);
 export const store = configureStore({
   reducer: {
     cart: persistedReducer,
+    sale: saleReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

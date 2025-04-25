@@ -30,8 +30,6 @@ function Products() {
   }, [catId]);
 
   const head = data[0]?.heading;
-  // console.log(data[0]?.product);
-  
 
   return (
     <>

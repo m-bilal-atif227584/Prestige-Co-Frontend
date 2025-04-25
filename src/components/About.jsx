@@ -2,7 +2,7 @@ import React from 'react';
 
 function About() {
   return (
-    <div className='max-w-7xl mx-auto px-2.5'>
+    <div className='max-w-7xl mx-auto px-2.5 mt-9'>
       <div className="relative">
       <h2 className="text-3xl font-semibold text-center relative z-[1] sm:w-[190px] w-[170px] mx-auto mb-10 bg-black pb-4">
         ABOUT US
