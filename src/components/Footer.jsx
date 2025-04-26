@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '/original.png';
-import mastercard from '../assets/Mastercard_logo.webp'
-import visacard from '../assets/visalogo.png'
+import mastercard from '/assets/Mastercard_logo.webp'
+import visacard from '/assets/visalogo.png'
 function Footer() {
   return (
     <footer className='w-full border-t-2 border-gray-500 px-4 py-6 bg-black text-white'>

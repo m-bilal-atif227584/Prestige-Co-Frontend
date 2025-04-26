@@ -18,13 +18,8 @@ function Header(DATA) {
     const sale = useSelector(state => state.sale.isSale);
     const [scroll, setScroll] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [searchshow,setsearchshow] = useState(true)
+    const [searchshow, setsearchshow] = useState(true)
 
-    const handleScroll = () => {
-        const offsets = window.scrollY;
-        setScroll(offsets > 200);
-    };
- 
     const handleSearchChange = (e) => {
 
         setsearchshow(true)
@@ -39,7 +34,7 @@ function Header(DATA) {
         const results = d.filter(item =>
             item.title && item.title.toLowerCase().includes(query.toLowerCase())
         );
-        
+
         setFilteredResults(results);
     };
 
@@ -58,6 +53,16 @@ function Header(DATA) {
 
 
     useEffect(() => {
+
+        const handleScroll = () => {
+            const offsets = window.scrollY;
+            if (offsets > 200) {
+              setScroll(true);
+            } else {
+              setScroll(false); // <- important!!
+            }
+          };
+              
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
@@ -65,7 +70,7 @@ function Header(DATA) {
     return (
         <>
             <div className={`${scroll ? "sticky_nav" : "nav_sec"} bg-black text-white w-full z-50`}>
-                <div className='flex items-center justify-between px-4 xl:px-12 py-4'>
+                <div className='flex items-center justify-between px-4 xl:px-12 sm:py-4 py-1.5'>
                     {/* Logo */}
                     <NavLink to={'/'}>
                         <img src={logo2} alt="Logo" className='h-[70px]' />
@@ -171,7 +176,7 @@ function Header(DATA) {
                     {searchQuery && filteredResults.length > 0 && (
                         <div className={`absolute sm:top-16 mt-2 sm:block top-[107px] right-[1.8rem] sm:right-24 sm:w-[220px] w-[75.8%] bg-gray-500 text-black shadow-lg sm:z-50 z-[100] rounded-lg max-h-64 overflow-y-auto ${searchshow ? '' : 'hidden'}`}>
                             {filteredResults.map(item => (
-                                <Link to={`/product/${item.id}`} key={item.id} className="flex items-center gap-2 px-2 py-2 border-b hover:bg-gray-600 duration-200 cursor-pointer" onClick={() => {setsearchshow(false); setSearchQuery(''); setMobileMenuOpen(false)}}>
+                                <Link to={`/product/${item.id}`} key={item.id} className="flex items-center gap-2 px-2 py-2 border-b hover:bg-gray-600 duration-200 cursor-pointer" onClick={() => { setsearchshow(false); setSearchQuery(''); setMobileMenuOpen(false) }}>
                                     <img src={item.img1} alt={item.title} className="w-10 h-10 object-cover rounded" />
                                     <span className='text-[0.9rem]' >{item.title}</span>
                                 </Link>
@@ -184,13 +189,13 @@ function Header(DATA) {
                 {/* {mobileMenuOpen && ( */}
                 <div className={`fixed top-0 ${mobileMenuOpen ? 'right-[0px]' : 'right-[-100vw]'} w-[90vw] h-full bg-black text-white shadow-lg transform transition-all ease-in-out duration-500 z-50`}>
                     <div className="flex justify-end p-6">
-                        <button onClick={() => setMobileMenuOpen(false)}>
+                        <button onClick={() => { setMobileMenuOpen(false); setsearchshow(false) }}>
                             <IoClose size={30} />
                         </button>
                     </div>
                     <div className="flex flex-col gap-4 overflow-y-auto px-6">
                         <div className="search h-[35px] bg-gray-800 rounded-xl flex px-2 py-1 items-center">
-                        <input
+                            <input
                                 type="text"
                                 value={searchQuery}
                                 onChange={handleSearchChange}
@@ -255,16 +260,16 @@ function Header(DATA) {
                             </div>
                         </div>
                         <NavLink to="/cart" className="relative" onClick={() => setMobileMenuOpen(false)}>
-    <div className="flex items-center gap-2 mt-4">
-        <MdOutlineShoppingCart className='h-6 w-6 hover:text-[#F4DF8B] duration-200' />
-        <span>Cart</span>
-        {products.length > 0 && (
-            <div className="bg-[#F4DF8B] text-black h-5 w-5 flex justify-center items-center rounded-full text-[13px]">
-                {products.length}
-            </div>
-        )}
-    </div>
-</NavLink>
+                            <div className="flex items-center gap-2 mt-4">
+                                <MdOutlineShoppingCart className='h-6 w-6 hover:text-[#F4DF8B] duration-200' />
+                                <span>Cart</span>
+                                {products.length > 0 && (
+                                    <div className="bg-[#F4DF8B] text-black h-5 w-5 flex justify-center items-center rounded-full text-[13px]">
+                                        {products.length}
+                                    </div>
+                                )}
+                            </div>
+                        </NavLink>
                     </div>
                 </div>
                 {/* )} */}

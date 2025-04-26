@@ -164,11 +164,6 @@ const Checkout = () => {
           })),
         })
       );
-      
-
-      // console.log('Email sent successfully:', response);
-
-      // Optionally, redirect the user or show a success message
   
       alert("✅ Order placed successfully!");
       navigate(`/success?orderId=${orderRes.$id}`);

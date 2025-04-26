@@ -1,6 +1,4 @@
 import React from 'react';
-import women from '../assets/womenCat.jpg'
-import men2 from '../assets/menCat.jpg'
 import { Link } from 'react-router';
 
 function CategorySec() {

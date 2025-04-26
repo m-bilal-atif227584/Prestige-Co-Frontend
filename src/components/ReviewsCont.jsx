@@ -4,7 +4,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { databases, Query } from '../utils/appwrite';
 import conf from '../utils/conf';
 import { ID } from 'appwrite';
-import user from '../assets/userwithbg-removebg-preview.png'
+import user from '/assets/userwithbg-removebg-preview.png'
 
 const ReviewsSection = () => {
 
@@ -181,7 +181,7 @@ const ReviewsSection = () => {
                   className="w-full mt-1 p-2 border border-gray-300 rounded-md"
                 >
                   {[5, 4, 3, 2, 1].map((r) => (
-                    <option key={r} value={r}>
+                    <option key={r} className='text-black' value={r}>
                       {r} Star{r > 1 ? 's' : ''}
                     </option>
                   ))}

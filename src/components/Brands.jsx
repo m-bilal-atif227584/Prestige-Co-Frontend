@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router";
 
 const brands = [
-  { name: "ROLEX", image: "src/assets/rolexx.jpg" },
-  { name: "PATEK PHILLIPE", image: "src/assets/patekk.jpg" },
-  { name: "HUGO BOSS", image: "src/assets/hugo.webp" },
-  { name: "BURBERRY", image: "src/assets/burr.jpg" },
-  { name: "TOMMY HILFIGER", image: "src/assets/tommy.webp" },
-  { name: "FOSSIL", image: "src/assets/fossil.jpg" },
+  { name: "ROLEX", image: "/assets/rolexx.jpg", link:"products/16" },
+  { name: "PATEK PHILLIPE", image: "/assets/patekk.jpg", link:"products/15" },
+  // { name: "HUGO BOSS", image: "/assets/hugo.webp" },
+  // { name: "BURBERRY", image: "/assets/burr.jpg" },
+  // { name: "TOMMY HILFIGER", image: "/assets/tommy.webp" },
+  // { name: "FOSSIL", image: "/assets/fossil.jpg" },
 ];
 
 const ShopByBrands = () => {
@@ -18,11 +19,12 @@ const ShopByBrands = () => {
       </h2>
       <div className="line bg-white h-[1px] w-full absolute top-5"></div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+      <div className="flex justify-center flex-wrap items-center gap-5">
         {brands.map((brand, index) => (
-          <div
+          <Link
+          to={brand.link}
             key={index}
-            className="relative group h-48 overflow-hidden rounded-lg shadow-sm cursor-pointer"
+            className="relative group h-48 w-48 overflow-hidden rounded-lg shadow-sm cursor-pointer"
           >
             <img
               src={brand.image}
@@ -34,7 +36,7 @@ const ShopByBrands = () => {
                 {brand.name}
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

@@ -9,7 +9,7 @@
     /* box-shadow: 1px 6px 10px -1px rgb(216, 216, 216); */
 /* } */
 .sticky_nav{
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 60;
     animation: stickyheader 0.3s ease forwards;
@@ -140,11 +140,11 @@
     background-color: #95C11E;
 }
 .card2 {
-    background: url('./assets/womenCat.jpg')no-repeat center center / cover;
+    background: url('/assets/womenCat.jpg')no-repeat center center / cover;
 }
 
 .card1 {
-    background: url('./assets/menCat.jpg')no-repeat center center / cover;
+    background: url('/assets/menCat.jpg')no-repeat center center / cover;
 }
 .scrollBarHide::-webkit-scrollbar{
     display: none;

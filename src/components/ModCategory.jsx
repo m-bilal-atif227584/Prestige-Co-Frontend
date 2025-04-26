@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router";
 
 const categories = [
-  { title: "Men Watches", image: "src/assets/modmen.jpg", link:"/products/6" },
-  { title: "Under 5,000", image: "src/assets/modluxury.jpg", link:"/products/22" },
-  { title: "Women Watches", image: "src/assets/modwomen.webp", link:"/products/7" },
-  { title: "Luxury Watches", image: "src/assets/modcheap.avif", link:"/products/23" },
+  { title: "Men Watches", image: "/assets/modmen.jpg", link:"/products/6" },
+  { title: "Under 5,000", image: "/assets/modluxury.jpg", link:"/products/22" },
+  { title: "Women Watches", image: "/assets/modwomen.webp", link:"/products/7" },
+  { title: "Luxury Watches", image: "/assets/modcheap.avif", link:"/products/23" },
 ];
 
 const CategoriesSection = () => {

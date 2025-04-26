@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'; 
-import watch from '../assets/watch.mp4'
+import React from 'react'; 
+import watch from '/assets/watch.mp4'
 import Premium from './Premium';
 import ModCategory from './ModCategory';
 import CategorySec from './CategorySec';
