@@ -11,4 +11,3 @@ client
     const functions = new Functions(client);
     
     export { client, databases, storage, Query, functions };
-    

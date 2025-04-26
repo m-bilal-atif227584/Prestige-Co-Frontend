@@ -187,7 +187,7 @@ function Header(DATA) {
 
                 {/* Mobile Menu (Sliding Sidebar) */}
                 {/* {mobileMenuOpen && ( */}
-                <div className={`fixed top-0 ${mobileMenuOpen ? 'right-[0px]' : 'right-[-100vw]'} w-[90vw] h-full bg-black text-white shadow-lg transform transition-all ease-in-out duration-500 z-50`}>
+                <div className={`fixed top-0 ${mobileMenuOpen ? 'right-[0px]' : 'right-[-100vw]'} w-[90vw] h-[100vh] bg-black text-white shadow-lg transform transition-all ease-in-out duration-500 z-50`}>
                     <div className="flex justify-end p-6">
                         <button onClick={() => { setMobileMenuOpen(false); setsearchshow(false) }}>
                             <IoClose size={30} />
