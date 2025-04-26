@@ -30,8 +30,6 @@ const SingleProduct = () => {
     
         fetchCategory();
       }, [Id]);
-    //   console.log(data);
-      
     
     const [SelectedImg, setSelectedImg] = useState("img1")
     const dispatch = useDispatch()
@@ -76,14 +74,14 @@ const SingleProduct = () => {
                 </div>}
 
                 {data && data.length > 0 && data[0]?.quantity > 0 && <button
-                    onClick={() => dispatch(addToCart({
+                    onClick={() => {dispatch(addToCart({
                         id:data[0].id,
                         title:data[0].title,
                         desc:data[0].description,
                         price:data[0].latestPrice,
                         img:data[0].img1,
                         quantity,
-                    }))} 
+                    })), alert("Item added to cart.")}} 
                     className="bg-black border-[3px] border-white text-white w-[270px] py-3 rounded-xl shadow-lg shadow-gray-600 hover:bg-[rgba(150,150,150,0.304)] duration-200 btn transition cursor-pointer"
                 >
                     Add to Cart
