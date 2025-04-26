@@ -11,7 +11,7 @@ function Footer() {
         <div className='flex flex-col md:flex-row items-center gap-3 text-center md:text-left'>
           <img src={logo} alt="logo" className='h-[70px] object-contain' />
           <p className='text-sm md:text-base'>
-            © 2025 <span className='font-semibold'>Timeless Luxe</span>. All Rights Reserved.
+            © 2025 <span className='font-semibold'>Prestige & Co</span>. All Rights Reserved.
           </p>
         </div>
 
