@@ -88,10 +88,6 @@ const SingleProduct = () => {
                 >
                     Add to Cart
                 </button>}
-                <div className="text-gray-400 text-[1rem] mt-5">- Stainless Steel</div>
-                <div className="text-gray-400 text-[1rem] mt-1">- Rust Proof</div>
-                <div className="text-gray-400 text-[1rem] mt-1">- Water Resistant</div>
-                <div className="text-gray-400 text-[1rem] mt-1">- Comes with one year warranty</div>
             </div>
         </div>
     );
