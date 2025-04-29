@@ -26,8 +26,8 @@ function ProductCard({ img, img2, id, category, description, quantity, type, tit
         <div className='flex flex-col justify-center items-center'>
             <Link to={`/product/${id}`} className='flex flex-col items-center justify-center w-[250px]'>
                 <div className='relative group'>
-                    {<img src={img} alt="product" className='h-[260px] w-[240px] z-[9] rounded-xl absolute top-0 object-cover transition duration-500 ease-in-out group-hover:opacity-0 group-hover:scale-105' />}
-                    {<img src={img2} alt="" className='h-[260px] w-[240px] rounded-xl relative z-[10] object-cover transition duration-500 ease-in-out scale-105 opacity-0 group-hover:opacity-100' />}
+                    {<img src={img} alt="product" className={`h-[260px] w-[240px] z-[9] rounded-xl absolute top-0 object-cover transition duration-500 ease-in-out ${img2 ? 'group-hover:opacity-0' : ''} group-hover:scale-105`} />}
+                    {<img src={img2} alt="" className={`h-[260px] w-[240px] rounded-xl relative z-[10] object-cover transition duration-500 ease-in-out scale-105 opacity-0 ${img2 ? 'group-hover:opacity-100' : ''}`} />}
                     <div className={`newtag bg-orange-400 font-bold text-black ${type?.toLowerCase() === 'sale' || category?.toLowerCase() === 'sale' ? '' : 'hidden'} absolute top-1 left-[5px] rounded-sm text-[0.9rem] z-20 py-[2px] px-[3px] border-1 border-black`}>SALE</div>
                     {<div className={`absolute top-1 newtag right-[5px] z-20 text-black ${quantity < 1 ? '' : 'hidden'} font-bold text-[0.9rem] py-[2px] px-[3px] border-1 border-black rounded-sm bg-red-500`}>OUT OF STOCK</div>}
                 </div>
