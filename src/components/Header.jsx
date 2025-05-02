@@ -114,11 +114,11 @@ function Header(DATA) {
                             }>Men</NavLink>
                             <div className="absolute hidden group-hover:flex flex-col bg-gray-900 text-white gap-1 top-full p-3 shadow-lg rounded w-[120px] z-50">
                                 <NavLink to="/products/11" className={({ isActive }) =>
-                                    isActive ? "text-[#F4DF8B] font-bold text-[0.88rem]" : "hover:text-[#F4DF8B] duration-200 text-[0.88rem]"
+                                    isActive ? "text-[#F4DF8B] text-[0.88rem]" : "hover:text-[#F4DF8B] duration-200 text-[0.88rem]"
                                 }>Strap Watches</NavLink>
                                 <hr />
                                 <NavLink to="/products/12" className={({ isActive }) =>
-                                    isActive ? "text-[#F4DF8B] text-[0.88rem] font-bold" : "hover:text-[#F4DF8B] duration-200 text-[0.88rem]"
+                                    isActive ? "text-[#F4DF8B] text-[0.88rem]" : "hover:text-[#F4DF8B] duration-200 text-[0.88rem]"
                                 }>Chain Watches</NavLink>
                             </div>
                         </div>
@@ -130,11 +130,11 @@ function Header(DATA) {
                             }>Women</NavLink>
                             <div className="absolute hidden group-hover:flex flex-col bg-gray-900 gap-1 w-[120px] text-white top-full p-3 shadow-lg rounded z-50">
                                 <NavLink to="/products/14" className={({ isActive }) =>
-                                    isActive ? "text-[#F4DF8B] text-[0.88rem] font-bold" : "hover:text-[#F4DF8B] duration-200 text-[0.88rem]"
+                                    isActive ? "text-[#F4DF8B] text-[0.88rem]" : "hover:text-[#F4DF8B] duration-200 text-[0.88rem]"
                                 }>Strap Watches</NavLink>
                                 <hr />
                                 <NavLink to="/products/13" className={({ isActive }) =>
-                                    isActive ? "text-[#F4DF8B] text-[0.88rem] font-bold" : "hover:text-[#F4DF8B] duration-200 text-[0.88rem]"
+                                    isActive ? "text-[#F4DF8B] text-[0.88rem]" : "hover:text-[#F4DF8B] duration-200 text-[0.88rem]"
                                 }>Chain Watches</NavLink>
                             </div>
                         </div>
