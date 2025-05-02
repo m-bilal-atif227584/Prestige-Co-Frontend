@@ -116,7 +116,7 @@ const ReviewsSection = () => {
         {/* Reviews Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-10">
           {reviews.map((review, index) => (
-            <div key={index} className="bg-black p-6 rounded-xl shadow-md">
+            <div key={index} className="bg-black p-6 rounded-xl shadow-md max-w-sm">
               <div className="flex items-center">
                 <img src={user} alt="" className='h-12 w-12 object-cover inn' />
               <div className="text-xl font-semibold text-white mb-1">{review.name}</div>
@@ -129,7 +129,7 @@ const ReviewsSection = () => {
                   />
                 ))}
               </div>
-              <p className="text-gray-300">{review.comment}</p>
+              <p className="text-gray-300 w-full break-words">{review.comment}</p>
             </div>
           ))}
         </div>
