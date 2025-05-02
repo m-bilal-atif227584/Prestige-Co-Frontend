@@ -103,9 +103,9 @@ function Header(DATA) {
                             }>Sale</NavLink>
                         }
 
-                        <NavLink to="/products/18" className={({ isActive }) =>
+                        {/* <NavLink to="/products/18" className={({ isActive }) =>
                             isActive ? "text-[#F4DF8B] font-bold" : "hover:text-[#F4DF8B] duration-200"
-                        }>Catalog</NavLink>
+                        }>Catalog</NavLink> */}
 
                         {/* Men Dropdown */}
                         <div className="relative group">
@@ -216,9 +216,9 @@ function Header(DATA) {
                         {sale && <NavLink to="/products/10" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) =>
                             isActive ? "text-[#F4DF8B] font-bold" : "hover:text-[#F4DF8B] duration-200"
                         }>Sale</NavLink>}
-                        <NavLink to="/products/18" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) =>
-                            isActive ? "text-[#F4DF8B] font-bold" : "hover:text-[#F4DF8B] duration-200"
-                        }>Catalog</NavLink>
+                        {/* <NavLink to="/products/18" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) =>
+                            isActive ? "text-[#F4DF8B] font-bold" : "hover:text-[#F4DF8B] duration-200" */}
+                        {/* }>Catalog</NavLink> */}
 
                         <div>
                             <NavLink to={'/products/6'} className={({ isActive }) =>

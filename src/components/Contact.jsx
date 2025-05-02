@@ -17,7 +17,7 @@ function Contact() {
         <BsWhatsapp className='h-7 w-7 hover:text-white duration-300 cursor-pointer' />
         </a>
         <a
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=PrestigeandCo30@gmail.com"
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=prestigeandco30@gmail.com"
   target="_blank"
   rel="noopener noreferrer"
 >

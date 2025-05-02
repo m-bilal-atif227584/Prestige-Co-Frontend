@@ -24,7 +24,7 @@ const Cart = () => {
       {products.length === 0 ? (
         <div className="flex flex-col justify-center items-center">
           <p className="text-gray-400 text-[1.4rem] text-center mt-32">Your cart is currently empty.</p>
-          <Link to={'/products/18'} className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 w-[200px] text-center mt-6 transition">Continue Shopping</Link>
+          <Link to={'/'} className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 w-[200px] text-center mt-6 transition">Continue Shopping</Link>
         </div>
       ) : (
         <div className="space-y-6">

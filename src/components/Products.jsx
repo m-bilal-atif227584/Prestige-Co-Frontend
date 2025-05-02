@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { useParams } from 'react-router';
-import useFetch from '../hooks/useFetch';
 import conf from '../utils/conf';
 import { databases, Query } from '../utils/appwrite';
 
